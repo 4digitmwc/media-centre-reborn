@@ -8,7 +8,7 @@ export default defineConfig({
   plugins: [react(), tsconfigPaths(), mdPlugin({ mode: [Mode.HTML] })],
   base: "",
   build: {
-    outDir: "docs",
+    outDir: "dist",
   },
   css: {
     preprocessorOptions: {
