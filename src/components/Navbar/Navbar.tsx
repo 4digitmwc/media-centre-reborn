@@ -25,7 +25,7 @@ export default ({ articles }: NavbarProps) => {
       if (articles[path].attributes.postName !== 'sample') {
         newCategories[category].push({
           title: articles[path].attributes.title,
-          href: `/${path}`,
+          href: `${import.meta.env.BASE_URL}${path}`,
         });
       }
     });
