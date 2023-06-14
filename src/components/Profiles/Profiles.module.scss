@@ -1,0 +1,43 @@
+.root {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+  margin: 1em;
+  gap: 1em;
+}
+
+.profile {
+  color: $color__text;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+}
+
+.img {
+  flex-shrink: 0;
+  width: 5em;
+  height: 5em;
+  margin: 1em;
+  overflow: hidden;
+  border: 2px solid $color__text;
+  border-radius: 50%;
+}
+
+.img img {
+  width: 5em;
+}
+
+.name {
+  font-size: 1.5em;
+  margin-bottom: .25em;
+  font-weight: bold;
+}
+
+.description {
+  max-width: 250px;
+}
+
+.description p {
+  margin: 0;
+}

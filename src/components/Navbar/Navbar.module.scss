@@ -1,0 +1,54 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.logo {
+  margin: .5em;
+}
+
+.categories {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  margin: 0 1em;
+  gap: 1em;
+}
+
+.category {
+  cursor: pointer;
+  color: $color__text;
+  font-family: $font-family__title;
+  text-decoration: none;
+}
+
+.panelContainer {
+  position: absolute;
+  top: 6em;
+  min-width: 400px;
+  max-width: 50%;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 1em;
+}
+
+.panel {
+  padding: 1em;
+  background: $color__background;
+  border: 2px solid $color__text;
+  list-style: none;
+}
+
+.entry {
+  margin-bottom: .5em;
+}
+
+.entry a {
+  color: $color__text;
+}
+
+.entry a:hover, .entry a:focus {
+  opacity: .8;
+}

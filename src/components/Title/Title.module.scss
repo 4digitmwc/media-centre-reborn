@@ -1,0 +1,22 @@
+.root {
+  background: $color__accent;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1em;
+  margin: 1em 0;
+  text-align: center;
+}
+
+.title {
+  margin: 0;
+  font-size: 2em;
+  margin-bottom: .5em;
+}
+
+.subtitle {
+  font-weight: 200;
+  font-size: 1.25em;
+  margin: 0;
+}

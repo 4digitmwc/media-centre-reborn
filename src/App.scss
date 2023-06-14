@@ -1,0 +1,41 @@
+@font-face {
+  font-family: 'LEMONMILK';
+  font-style: normal;
+  font-weight: 400;
+  src: url('assets/fonts/LEMONMILK-Regular.otf');
+}
+
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 400;
+  src: url('assets/fonts/Lato-Regular.ttf');
+}
+
+@font-face {
+  font-family: 'Lato';
+  font-style: italic;
+  font-weight: 400;
+  src: url('assets/fonts/Lato-Italic.ttf');
+}
+
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 600;
+  src: url('assets/fonts/Lato-Bold.ttf');
+}
+
+@font-face {
+  font-family: 'Lato';
+  font-style: italic;
+  font-weight: 600;
+  src: url('assets/fonts/Lato-BoldItalic.ttf');
+}
+
+html, body {
+  font-family: $font-family__regular;
+  color: $color__text;
+  background-color: $color__background;
+  margin: 0;
+}
