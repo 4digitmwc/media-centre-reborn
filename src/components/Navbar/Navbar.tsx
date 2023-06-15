@@ -34,7 +34,7 @@ export default ({ articles }: NavbarProps) => {
 
   return <div className={classes.root} onMouseLeave={() => setHighlightedTab('')}>
     <div className={classes.logo}>
-      <a href="/"><img alt="" src={logo} /></a>
+      <a href={import.meta.env.BASE_URL}><img alt="" src={logo} /></a>
     </div>
     <div className={classes.categories}>
       <a className={classes.category} onMouseOver={() => setHighlightedTab('stories')}>Stories</a>
