@@ -10,7 +10,6 @@ import Profiles, {
   Profile as IProfile,
   isProfiles,
 } from "components/Profiles/Profiles";
-
 import "App.scss";
 
 const importArticles = import.meta.glob("./md/4dm2023/articles/**/*.md");
