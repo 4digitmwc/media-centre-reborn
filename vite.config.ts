@@ -6,7 +6,7 @@ import { plugin as mdPlugin, Mode } from "vite-plugin-markdown";
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react(), tsconfigPaths(), mdPlugin({ mode: [Mode.HTML] })],
-  base: "/media-centre-reborn/",
+  base: "",
   build: {
     outDir: "dist",
   },
