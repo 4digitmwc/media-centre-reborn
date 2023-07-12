@@ -14,8 +14,8 @@ import "App.scss";
 
 const TOURNAMENT = '4dm2023'
 
-const importArticles = import.meta.glob(`./md/${TOURNAMENT}/articles/**/*.md`);
-const importProfiles = import.meta.glob(`./md/${TOURNAMENT}/profiles/*.md`);
+const importArticles = import.meta.glob("./md/4dm2023/articles/**/*.md");
+const importProfiles = import.meta.glob("./md/4dm2023/profiles/*.md");
 
 export default () => {
   const [articles, setArticles] = useState<Record<string, IArticle>>();
