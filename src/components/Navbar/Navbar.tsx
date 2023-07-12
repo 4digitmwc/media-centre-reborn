@@ -12,8 +12,6 @@ interface CategoryEntry {
   href: string;
 }
 
-const categoryList = ['Analysis', 'Highlights', 'Interviews', 'Predictions']
-
 export default function Navbar({ articles }: NavbarProps) {
   const [categories, setCategories] = useState<Record<string, CategoryEntry[]>>({});
   const [highlightedTab, setHighlightedTab] = useState<string>();
