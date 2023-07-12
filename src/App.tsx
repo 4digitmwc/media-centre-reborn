@@ -12,8 +12,10 @@ import Profiles, {
 } from "components/Profiles/Profiles";
 import "App.scss";
 
-const importArticles = import.meta.glob("./md/4dm2023/articles/**/*.md");
-const importProfiles = import.meta.glob("./md/4dm2023/profiles/*.md");
+const TOURNAMENT = '4dm2023'
+
+const importArticles = import.meta.glob(`./md/${TOURNAMENT}/articles/**/*.md`);
+const importProfiles = import.meta.glob(`./md/${TOURNAMENT}/profiles/*.md`);
 
 export default () => {
   const [articles, setArticles] = useState<Record<string, IArticle>>();
@@ -45,7 +47,7 @@ export default () => {
           const articlePayload = articlesObj[currentPath];
           Promise.all(
             articlePayload.attributes.authors.map((author) =>
-              importProfiles[`./md/4dm2023/profiles/${author}.md`]()
+              importProfiles[`./md/${TOURNAMENT}/profiles/${author}.md`]()
             )
           ).then((profilesPayload) => {
             if (isProfiles(profilesPayload)) {
