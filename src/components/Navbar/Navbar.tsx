@@ -12,6 +12,8 @@ interface CategoryEntry {
   href: string;
 }
 
+const categoryList = ['Analysis', 'Highlights', 'Interviews', 'Predictions']
+
 export default ({ articles }: NavbarProps) => {
   const [categories, setCategories] = useState<Record<string, CategoryEntry[]>>();
   const [highlightedTab, setHighlightedTab] = useState<string>();
@@ -37,10 +39,12 @@ export default ({ articles }: NavbarProps) => {
       <a href={import.meta.env.BASE_URL}><img alt="" src={logo} /></a>
     </div>
     <div className={classes.categories}>
-      <a className={classes.category} onMouseOver={() => setHighlightedTab('stories')}>Stories</a>
-      <a className={classes.category} onMouseOver={() => setHighlightedTab('interviews')}>Interviews</a>
-      <a className={classes.category} onMouseOver={() => setHighlightedTab('opinions')}>Opinions</a>
-      <a className={classes.category} onMouseOver={() => setHighlightedTab('highlights')}>Highlights</a>
+      {
+        categoryList.map(
+          (category: string) => <a className={classes.category} onMouseOver={
+            () => setHighlightedTab(category.toLowerCase())}>{category}</a>
+        )
+      }
     </div>
     {highlightedTab && categories && <div className={classes.panelContainer}>
       <ul className={classes.panel}>
