@@ -3,9 +3,9 @@ import axios from 'axios'
 const BASE_URL = 'mmc-backend.vercel.app'
 
 export interface IArticlesQuery {
-    category: string
-    country: string
-    query: string
+    category?: string
+    country?: string
+    query?: string
 }
 
 export interface IContentQuery {
