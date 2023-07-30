@@ -7,25 +7,14 @@ import classes from "./Search.module.scss";
 interface SearchProps {
   countries: string[];
   categories: string[];
-  results: string[];
   // TODO:
+  // results: string[];
   // onSearch: (input: string) => void;
   // onCountry: (input: string) => void;
   // onCategory: (input: string) => void;
 }
 
-export default ({
-  countries = [
-    'Country 1',
-    'Country 2',
-    'Country 3',
-  ],
-  categories = [
-    'Category 1',
-    'Category 2',
-    'Category 3'
-  ]
-}: SearchProps) => {
+export default ({ countries, categories }: SearchProps) => {
   return <div className={classes.root}>
     <div className={classes.search}>
       <TextField id="search" type="search" label="Search..." variant="outlined" />

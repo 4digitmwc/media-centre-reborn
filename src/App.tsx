@@ -92,7 +92,10 @@ export default () => {
           <Article {...article} />
         </>
       ) : (
-        <Search />
+        <Search
+          countries={["Country 1", "Country 2", "Country 3"]}
+          categories={["Category 1", "Category 2", "Category 3"]}
+        />
       )}
     </ThemeProvider>
   );
