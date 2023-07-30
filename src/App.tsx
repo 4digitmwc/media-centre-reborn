@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
+import { ThemeProvider, createTheme } from "@mui/material";
 
 import Navbar from "components/Navbar/Navbar";
+import Search from "components/Search/Search";
 import Title from "components/Title/Title";
 import Article, {
   Article as IArticle,
@@ -12,8 +14,20 @@ import Profiles, {
 } from "components/Profiles/Profiles";
 import "App.scss";
 
+const theme = createTheme({
+  palette: {
+    mode: "dark"
+  },
+  typography: {
+    fontFamily: "Lato"
+  }
+});
+
 const TOURNAMENT = '4dm2023'
 
+// TODO: Replace importing local file articles with using a backend, i.e.
+// https://mmc-backend.vercel.app/content?category=predictions&week=round%20of%20727
+// ayaya
 const importArticles = import.meta.glob("./md/4dm2023/articles/**/*.md");
 const importProfiles = import.meta.glob("./md/4dm2023/profiles/*.md");
 
@@ -66,9 +80,9 @@ export default () => {
   }, []);
 
   return (
-    <>
+    <ThemeProvider theme={theme}>
       {articles && <Navbar articles={articles} />}
-      {article && profiles && (
+      {article && profiles ? (
         <>
           <Title
             title={article.attributes.title}
@@ -77,7 +91,9 @@ export default () => {
           <Profiles profiles={profiles} />
           <Article {...article} />
         </>
+      ) : (
+        <Search />
       )}
-    </>
+    </ThemeProvider>
   );
 };

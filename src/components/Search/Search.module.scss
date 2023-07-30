@@ -1,0 +1,13 @@
+.root {
+  max-width: 800px;
+  margin: auto;
+  padding: 1em 1em 5em;
+}
+
+.search > * {
+  width: 100%;
+}
+
+.search, .country, .category {
+  margin-bottom: 1em;
+}
