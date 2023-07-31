@@ -13,6 +13,10 @@ export interface IContentQuery {
     week: string
 }
 
+export interface IProfileQuery {
+    username: string
+}
+
 export const getArticles = async (articlesQuery: IArticlesQuery) => {
     try {
         const response = await axios.get(`${BASE_URL}/articles`, { params: articlesQuery })
@@ -27,6 +31,17 @@ export const getArticles = async (articlesQuery: IArticlesQuery) => {
 export const getContent = async (contentQuery: IContentQuery) => {
     try {
         const response = await axios.get(`${BASE_URL}/content`, { params: contentQuery })
+        const data = response.data
+        return data
+    } catch (error) {
+        console.error('Error fetching content:', error)
+        throw error
+    }
+}
+
+export const getProfile = async (profileQuery: IProfileQuery) => {
+    try {
+        const response = await axios.get(`${BASE_URL}/profile`, { params: profileQuery })
         const data = response.data
         return data
     } catch (error) {
