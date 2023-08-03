@@ -6,10 +6,15 @@
 
 .search > * {
   width: 100%;
+  
 }
 
 .country, .category > * {
   width: 45%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 12px;
 }
 
 .search,.country, .category {
