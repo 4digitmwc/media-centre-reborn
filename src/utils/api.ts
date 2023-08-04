@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const BASE_URL = 'mmc-backend.vercel.app'
+const BASE_URL = 'https://mmc-backend.vercel.app'
 
 export interface IArticlesQuery {
     category?: string
@@ -19,7 +19,7 @@ export interface IProfileQuery {
 
 export const getArticles = async (articlesQuery: IArticlesQuery) => {
     try {
-        const response = await axios.get(`${BASE_URL}/articles`, { params: articlesQuery })
+        const response = await axios.post(`${BASE_URL}/articles`, articlesQuery)
         const data = response.data
         return data
     } catch (error) {
@@ -30,7 +30,7 @@ export const getArticles = async (articlesQuery: IArticlesQuery) => {
 
 export const getContent = async (contentQuery: IContentQuery) => {
     try {
-        const response = await axios.get(`${BASE_URL}/content`, { params: contentQuery })
+        const response = await axios.post(`${BASE_URL}/content`, contentQuery)
         const data = response.data
         return data
     } catch (error) {
@@ -41,7 +41,7 @@ export const getContent = async (contentQuery: IContentQuery) => {
 
 export const getProfile = async (profileQuery: IProfileQuery) => {
     try {
-        const response = await axios.get(`${BASE_URL}/profile`, { params: profileQuery })
+        const response = await axios.post(`${BASE_URL}/profile`, profileQuery)
         const data = response.data
         return data
     } catch (error) {

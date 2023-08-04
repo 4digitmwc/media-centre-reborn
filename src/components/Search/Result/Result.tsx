@@ -1,12 +1,17 @@
 import classes from "./Result.module.scss";
 
-interface ResultProps {
+export interface ResultProps {
   title: string;
-  subtitle: string;
-  href: string;
+  shortened_content: string
+  category: string
+  week: string
 }
 
-export default ({ title, subtitle, href }: ResultProps) => <a href={href} className={classes.root}>
+const makehref = (category: string, week: string) => {
+  return `${category}/${week}`
+}
+
+export default ({ title, shortened_content, category, week }: ResultProps) => <a href={makehref(category, week)} className={classes.root}>
   <div className={classes.title}>{title}</div>
-  <div className={classes.subtitle}>{subtitle}</div>
+  <div className={classes.subtitle}>{shortened_content}</div>
 </a>;

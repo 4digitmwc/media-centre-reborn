@@ -1,11 +1,12 @@
+import { useState, useEffect } from 'react';
 import { TextField, Autocomplete } from '@mui/material';
-import Result from './Result/Result';
+import Result, { ResultProps } from './Result/Result';
 import classes from "./Search.module.scss";
+import { getArticles } from 'utils/api';
 
 interface SearchProps {
   countries: string[];
   categories: string[];
-  // TODO:
   // results: string[];
   // onSearch: (input: string) => void;
   // onCountry: (input: string) => void;
@@ -13,24 +14,53 @@ interface SearchProps {
 }
 
 export default ({ countries, categories }: SearchProps) => {
+  const [search, setSearch] = useState<string>("")
+  const [category, setCategory] = useState<string>("")
+  const [country, setCountry] = useState<string>("")
+  const [result, setResult] = useState<ResultProps[]>([])
+
+  const handleSearchChange = (e: React.BaseSyntheticEvent) => {
+    setSearch(e.target.value || "")
+  }
+
+  const handleCategoryChange = (e: React.BaseSyntheticEvent) => {
+    setCategory(e.target.value || "")
+  }
+
+  const handleCountryChange = (e: React.BaseSyntheticEvent) => {
+    setCountry(e.target.value || "")
+  }
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const articles = await getArticles({ query: search, country, category });
+        console.log(articles)
+        setResult(articles);
+      } catch (error) {
+        console.error("Error fetching articles:", error);
+      }
+    };
+  
+    fetchData();
+  }, [search, category, country])
+
   return (
     <div className="container">
       <div className={classes.root}>
         <div className={classes.search}>
-          <TextField id="search" type="search" label="Search..." variant="outlined" />
+          <TextField id="search" type="search" label="Search..." variant="outlined" onChange={handleSearchChange} />
         </div>
         <div className={classes.country}>
-          <Autocomplete id="country" options={countries} renderInput={params => <TextField {...params} label="Country" />} />
+          <Autocomplete id="country" options={countries} renderInput={params => <TextField {...params} label="Country" onChange={handleCountryChange} />} />
         </div>
         <div className={classes.category}>
-          <Autocomplete id="category" options={categories} renderInput={params => <TextField {...params} label="Categories" />} />
+          <Autocomplete id="category" options={categories} renderInput={params => <TextField {...params} label="Categories" onChange={handleCategoryChange} />} />
         </div>
         <div className={classes.results}>
-          <Result href="#" title="Title 1" subtitle="Subtitle 1 teehee" />
-          <Result href="#" title="Title 2" subtitle="Subtitle 2 teehee" />
-          <Result href="#" title="Title 3" subtitle="Subtitle 3 teehee" />
-          <Result href="#" title="Title 4" subtitle="Subtitle 4 teehee" />
-          <Result href="#" title="Title 5" subtitle="Subtitle 5 teehee" />
+          {
+            result.map((article: ResultProps) => <Result {...article} />)
+          }
         </div>
       </div>
     </div>
