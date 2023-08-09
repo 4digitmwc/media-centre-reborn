@@ -13,6 +13,7 @@ import Profiles, {
   isProfiles,
 } from "components/Profiles/Profiles";
 import "App.scss";
+import { Churros } from "components/Churros/Churros";
 
 const theme = createTheme({
   palette: {
@@ -32,6 +33,13 @@ const importArticles = import.meta.glob("./md/4dm2023/articles/**/*.md");
 const importProfiles = import.meta.glob("./md/4dm2023/profiles/*.md");
 
 export default () => {
+  const href = window.location.href.split("/")
+  if (href[href.length - 1]) {
+    return <ThemeProvider theme={theme}>
+      <Churros />
+    </ThemeProvider>
+  }
+
   const [articles, setArticles] = useState<Record<string, IArticle>>();
   const [article, setArticle] = useState<IArticle>();
   const [profiles, setProfiles] = useState<IProfile[]>();

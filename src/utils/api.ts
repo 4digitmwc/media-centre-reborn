@@ -17,6 +17,10 @@ export interface IProfileQuery {
     username: string
 }
 
+export interface IChurrosQuery {
+    country: string
+}
+
 export const getArticles = async (articlesQuery: IArticlesQuery) => {
     try {
         const response = await axios.post(`${BASE_URL}/articles`, articlesQuery)
@@ -42,6 +46,27 @@ export const getContent = async (contentQuery: IContentQuery) => {
 export const getProfile = async (profileQuery: IProfileQuery) => {
     try {
         const response = await axios.post(`${BASE_URL}/profile`, profileQuery)
+        const data = response.data
+        return data
+    } catch (error) {
+        console.error('Error fetching content:', error)
+        throw error
+    }
+}
+
+export const getChurrosCountries = async () => {
+    try {
+        const { data } = await axios.get(`${BASE_URL}/churros/countries`)
+        return data
+    } catch (error) {
+        console.error('Error fetching countries:', error)
+        throw error
+    }
+}
+
+export const getChurros = async (churrosQuery: IChurrosQuery) => {
+    try {
+        const response = await axios.post(`${BASE_URL}/churros/content`, churrosQuery)
         const data = response.data
         return data
     } catch (error) {
