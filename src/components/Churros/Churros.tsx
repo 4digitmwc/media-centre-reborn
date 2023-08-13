@@ -107,5 +107,9 @@ export const Churros: React.FC = () => {
                 }
             </Box>
         </article>
+        {/* Credits */}
+        <h2>Credits</h2>
+        All of the data comes from <a href="https://docs.google.com/spreadsheets/d/1ckDw6UqE2MXTjytwhO2LsLZ_yrHGosyS2dQihvIYzqc">4kMWC2023 Crash Course Spreadsheet</a> 
+        by <a href="https://osu.ppy.sh/users/9423766">Logan636</a> and <a href="https://osu.ppy.sh/users/11517895">Silhoueska Elze</a>, all the permissions have been granted.
     </div>
 }
