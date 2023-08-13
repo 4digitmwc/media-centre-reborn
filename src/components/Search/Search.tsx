@@ -23,19 +23,18 @@ export default ({ countries, categories }: SearchProps) => {
     setSearch(e.target.value || "")
   }
 
-  const handleCategoryChange = (e: React.BaseSyntheticEvent) => {
-    setCategory(e.target.value || "")
+  const handleCategoryChange = (_: any, newValue: string | null) => { 
+    setCategory(newValue || "") 
   }
 
-  const handleCountryChange = (e: React.BaseSyntheticEvent) => {
-    setCountry(e.target.value || "")
+  const handleCountryChange = (_: any, newValue: string | null) => {
+    setCountry(newValue || "")
   }
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const articles = await getArticles({ query: search, country, category });
-        console.log(articles)
         setResult(articles);
       } catch (error) {
         console.error("Error fetching articles:", error);
@@ -52,10 +51,10 @@ export default ({ countries, categories }: SearchProps) => {
           <TextField id="search" type="search" label="Search..." variant="outlined" onChange={handleSearchChange} />
         </div>
         <div className={classes.country}>
-          <Autocomplete id="country" options={countries} renderInput={params => <TextField {...params} label="Country" onChange={handleCountryChange} />} />
+          <Autocomplete id="country" options={countries} onChange={handleCountryChange} renderInput={params => <TextField {...params} label="Country" />} />
         </div>
         <div className={classes.category}>
-          <Autocomplete id="category" options={categories} renderInput={params => <TextField {...params} label="Categories" onChange={handleCategoryChange} />} />
+          <Autocomplete id="category" options={categories} onChange={handleCategoryChange} renderInput={params => <TextField {...params} label="Categories" />} />
         </div>
         <div className={classes.results}>
           {

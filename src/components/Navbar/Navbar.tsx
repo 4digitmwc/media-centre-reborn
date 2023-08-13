@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import logo from 'assets/images/4dm_logo.svg';
 import classes from './Navbar.module.scss';
-import { Article } from 'components/Article/Article';
+import { IArticleJSON } from 'interfaces/interfaces';
 
 interface NavbarProps {
-  articles: Record<string, Article>;
+  articles: IArticleJSON[];
 }
 
 interface CategoryEntry {
@@ -19,17 +19,14 @@ export default function Navbar({ articles }: NavbarProps) {
   const buildCategories = () => {
     const newCategories: Record<string, CategoryEntry[]> = {};
 
-    Object.keys(articles).forEach((path) => {
-      const [category] = path.split('/');
+    articles.forEach((article: IArticleJSON) => {
+      const {category, week, title} = article
       if (!newCategories[category]) {
         newCategories[category] = [];
       }
 
-      const { postName, title } = articles[path].attributes;
-      if (postName !== 'sample') {
-        const href = `${import.meta.env.BASE_URL}${path}`;
+      const href = `${import.meta.env.BASE_URL}/${category}/${week}`;
         newCategories[category].push({ title, href });
-      }
     });
 
     setCategories(newCategories);

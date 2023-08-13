@@ -74,3 +74,25 @@ export const getChurros = async (churrosQuery: IChurrosQuery) => {
         throw error
     }
 }
+
+export const getArticleCountries = async () => {
+    try {
+        const response = await axios.get(`${BASE_URL}/countries`)
+        const data = response.data
+        return data
+    } catch (error) {
+        console.error('Error fetching content:', error)
+        throw error
+    }
+}
+
+export const getArticleCategories = async () => {
+    try {
+        const response = await axios.get(`${BASE_URL}/categories`)
+        const data = response.data
+        return data
+    } catch (error) {
+        console.error('Error fetching content:', error)
+        throw error
+    }
+}

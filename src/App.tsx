@@ -4,16 +4,12 @@ import { ThemeProvider, createTheme } from "@mui/material";
 import Navbar from "components/Navbar/Navbar";
 import Search from "components/Search/Search";
 import Title from "components/Title/Title";
-import Article, {
-  Article as IArticle,
-  isArticle,
-} from "components/Article/Article";
-import Profiles, {
-  Profile as IProfile,
-  isProfiles,
-} from "components/Profiles/Profiles";
+import Article from "components/Article/Article";
+import Profiles from "components/Profiles/Profiles";
 import "App.scss";
 import { Churros } from "components/Churros/Churros";
+import { IContentQuery, getArticleCategories, getArticleCountries, getArticles, getContent, getProfile } from "utils/api";
+import { IArticleJSON, IProfileJSON } from "interfaces/interfaces";
 
 const theme = createTheme({
   palette: {
@@ -24,68 +20,50 @@ const theme = createTheme({
   }
 });
 
-const TOURNAMENT = '4dm2023'
-
-// TODO: Replace importing local file articles with using a backend, i.e.
-// https://mmc-backend.vercel.app/content?category=predictions&week=round%20of%20727
-// ayaya
-const importArticles = import.meta.glob("./md/4dm2023/articles/**/*.md");
-const importProfiles = import.meta.glob("./md/4dm2023/profiles/*.md");
 
 export default () => {
-  const href = window.location.href.split("/")
-  if (href[href.length - 1]) {
+  const href = location.href.split("/")
+  if (href[href.length - 1] === 'crash-course') {
     return <ThemeProvider theme={theme}>
       <Churros />
     </ThemeProvider>
   }
 
-  const [articles, setArticles] = useState<Record<string, IArticle>>();
-  const [article, setArticle] = useState<IArticle>();
-  const [profiles, setProfiles] = useState<IProfile[]>();
+  const [articles, setArticles] = useState<IArticleJSON[]>()
+  const [article, setArticleJSON] = useState<IArticleJSON>()
+  const [profiles, setProfilesJSON] = useState<IProfileJSON[]>()
 
-  const loadArticles = async () => {
-    const articlesPayload = await Promise.all(
-      Object.entries(importArticles).map(([path, fn]) =>
-        fn().then(articlePayload => {
-          if (isArticle(articlePayload)) {
-            const pathTail = `${path.split('/').slice(-2)[0]}/${articlePayload.attributes.postName}`;
-            return { ...articlePayload, path: pathTail } as IArticle;
-          }
-        })
-      )
-    );
+  const [countries, setCountries] = useState<string[]>([])
+  const [categories, setCategories] = useState<string[]>([])
 
-    const articlesObj = articlesPayload.reduce((obj, articlePayload) => {
-      if (articlePayload !== undefined) {
-        obj[articlePayload.path!] = articlePayload;
-      }
-      return obj;
-    }, {} as Record<string, IArticle>);
+  const loadOptions = async () => {
+    setCountries(await getArticleCountries())
+    setCategories(await getArticleCategories())
+  }
 
-    const currentPath = location.href.split("/").slice(-2).join("/");
+  const fetchArticles = async () => {
+    setArticles(await getArticles({}))
+  }
 
-    setArticles(articlesObj);
-
-    if (articlesObj[currentPath]) {
-      const articlePayload = articlesObj[currentPath];
-
-      const profilesPayload = await Promise.all(
-        articlePayload.attributes.authors.map(author =>
-          importProfiles[`./md/${TOURNAMENT}/profiles/${author}.md`]()
-        )
-      );
-
-      if (isProfiles(profilesPayload)) {
-        setProfiles(profilesPayload);
-        setArticle(articlePayload);
-      }
-    }
-  };
+  const loadArticle = async (contentQuery: IContentQuery) => {
+    const content = await getContent(contentQuery)
+    setArticleJSON(content)
+    let profile_contents: IProfileJSON[] = []
+    content.authors.foreach(async (author: string) => {
+      profile_contents.push(await getProfile({username: author}))
+    })
+    setProfilesJSON(profile_contents)
+  }
 
   useEffect(() => {
-    loadArticles();
+    loadOptions();
+    fetchArticles()
   }, []);
+
+  useEffect(() => {
+    const [category, week] = location.href.split("/").slice(-2);
+    loadArticle({category, week})
+  }, [])
 
   return (
     <ThemeProvider theme={theme}>
@@ -93,16 +71,16 @@ export default () => {
       {article && profiles ? (
         <>
           <Title
-            title={article.attributes.title}
-            subtitle={article.attributes.subtitle}
+            title={article.title}
+            subtitle=""
           />
           <Profiles profiles={profiles} />
           <Article {...article} />
         </>
       ) : (
         <Search
-          countries={["Country 1", "Country 2", "Country 3"]}
-          categories={["Category 1", "Category 2", "Category 3"]}
+          countries={countries}
+          categories={categories}
         />
       )}
     </ThemeProvider>
