@@ -40,7 +40,7 @@ export const Churros: React.FC = () => {
         <Autocomplete 
             id="country" 
             options={countries} 
-            onChange={(e: any, newValue: string | null) => { setCountry(newValue || "Brazil") }} 
+            onChange={(e: any, newValue: string | null) => { setCountry(newValue || "Brazil"); e = e }} 
             renderInput={params => <TextField {...params} label="Country" />} 
         />
         {/* Roster Box */}
