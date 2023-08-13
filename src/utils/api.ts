@@ -33,6 +33,7 @@ export const getArticles = async (articlesQuery: IArticlesQuery) => {
 }
 
 export const getContent = async (contentQuery: IContentQuery) => {
+    console.log(contentQuery)
     try {
         const response = await axios.post(`${BASE_URL}/content`, contentQuery)
         const data = response.data

@@ -49,7 +49,7 @@ export default () => {
     const content = await getContent(contentQuery)
     setArticleJSON(content)
     let profile_contents: IProfileJSON[] = []
-    content.authors.foreach(async (author: string) => {
+    content.authors.forEach(async (author: string) => {
       profile_contents.push(await getProfile({username: author}))
     })
     setProfilesJSON(profile_contents)
