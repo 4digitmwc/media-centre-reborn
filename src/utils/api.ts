@@ -35,7 +35,6 @@ export const getContent = async (contentQuery: IContentQuery) => {
     try {
         const response = await axios.post(`${BASE_URL}/content`, contentQuery)
         const data = response.data
-        console.log(data)
         return data
     } catch (error) {
         console.error('Error fetching content:', error)
