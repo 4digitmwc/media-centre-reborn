@@ -8,7 +8,7 @@ export interface ResultProps {
 }
 
 const makehref = (category: string, week: string) => {
-  return `${import.meta.env.BASE_URL}/${category}/${week}`
+  return `${import.meta.env.BASE_URL}${category}/${week}`
 }
 
 export default ({ title, shortened_content, category, week }: ResultProps) => <a href={makehref(category, week)} className={classes.root}>
