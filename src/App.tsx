@@ -58,7 +58,7 @@ export default () => {
   return (
     <ThemeProvider theme={theme}>
       {articles && <Navbar articles={articles} />}
-      {article && profiles && profiles.length ? (
+      {(article && profiles && profiles.length && !article) ? (
         <>
           <Title
             title={article.title}
