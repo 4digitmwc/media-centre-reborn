@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import logo from 'assets/images/4dm_logo.svg';
+import logo from 'assets/images/wiki_banner_2.webp';
 import classes from './Navbar.module.scss';
 import { IArticleJSON } from 'interfaces/interfaces';
 
@@ -64,7 +64,7 @@ export default function Navbar({ articles }: NavbarProps) {
     <div className={classes.root} onMouseLeave={() => setHighlightedTab('')}>
       <div className={classes.logo}>
         <a href={import.meta.env.BASE_URL}>
-          <img alt="" src={logo} />
+          <img alt="" src={logo} style={{width: "12%", height:"12%", display: "block", margin: "auto"}} />
         </a>
       </div>
       <div className={classes.categories}>

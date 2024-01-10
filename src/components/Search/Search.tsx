@@ -5,7 +5,6 @@ import classes from "./Search.module.scss";
 import { getArticles } from 'utils/api';
 
 interface SearchProps {
-  countries: string[];
   categories: string[];
   // results: string[];
   // onSearch: (input: string) => void;
@@ -13,10 +12,9 @@ interface SearchProps {
   // onCategory: (input: string) => void;
 }
 
-export default ({ countries, categories }: SearchProps) => {
+export default ({ categories }: SearchProps) => {
   const [search, setSearch] = useState<string>("")
   const [category, setCategory] = useState<string>("")
-  const [country, setCountry] = useState<string>("")
   const [result, setResult] = useState<ResultProps[]>([])
 
   const handleSearchChange = (e: React.BaseSyntheticEvent) => {
@@ -27,14 +25,10 @@ export default ({ countries, categories }: SearchProps) => {
     setCategory(newValue || "") 
   }
 
-  const handleCountryChange = (_: any, newValue: string | null) => {
-    setCountry(newValue || "")
-  }
-
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const articles = await getArticles({ query: search, country, category });
+        const articles = await getArticles({ query: search, category });
         setResult(articles);
       } catch (error) {
         console.error("Error fetching articles:", error);
@@ -42,16 +36,13 @@ export default ({ countries, categories }: SearchProps) => {
     };
   
     fetchData();
-  }, [search, category, country])
+  }, [search, category])
 
   return (
     <div className="container">
       <div className={classes.root}>
         <div className={classes.search}>
           <TextField id="search" type="search" label="Search..." variant="outlined" onChange={handleSearchChange} />
-        </div>
-        <div className={classes.country}>
-          <Autocomplete id="country" options={countries} onChange={handleCountryChange} renderInput={params => <TextField {...params} label="Country" />} />
         </div>
         <div className={classes.category}>
           <Autocomplete id="category" options={categories} onChange={handleCategoryChange} renderInput={params => <TextField {...params} label="Categories" />} />

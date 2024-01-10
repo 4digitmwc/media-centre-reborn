@@ -7,8 +7,7 @@ import Title from "components/Title/Title";
 import Article from "components/Article/Article";
 import Profiles from "components/Profiles/Profiles";
 import "App.scss";
-import { Churros } from "components/Churros/Churros";
-import { IContentQuery, getArticleCategories, getArticleCountries, getArticles, getContent, getProfile } from "utils/api";
+import { IContentQuery, getArticleCategories, getArticles, getContent, getProfile } from "utils/api";
 import { IArticleJSON, IProfileJSON } from "interfaces/interfaces";
 
 const theme = createTheme({
@@ -22,22 +21,13 @@ const theme = createTheme({
 
 
 export default () => {
-  const href = location.href.split("/")
-  if (href[href.length - 1] === 'crash-course') {
-    return <ThemeProvider theme={theme}>
-      <Churros />
-    </ThemeProvider>
-  }
 
   const [articles, setArticles] = useState<IArticleJSON[]>()
   const [article, setArticleJSON] = useState<IArticleJSON>()
   const [profiles, setProfilesJSON] = useState<IProfileJSON[]>()
-
-  const [countries, setCountries] = useState<string[]>([])
   const [categories, setCategories] = useState<string[]>([])
 
   const loadOptions = async () => {
-    setCountries(await getArticleCountries())
     setCategories(await getArticleCategories())
   }
 
@@ -79,7 +69,6 @@ export default () => {
         </>
       ) : (
         <Search
-          countries={countries}
           categories={categories}
         />
       )}

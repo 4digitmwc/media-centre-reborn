@@ -4,7 +4,6 @@ const BASE_URL = 'https://mmc-backend.vercel.app'
 
 export interface IArticlesQuery {
     category?: string
-    country?: string
     query?: string
 }
 
