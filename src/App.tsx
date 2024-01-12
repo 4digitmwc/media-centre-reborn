@@ -25,7 +25,7 @@ export default () => {
 
   const [articles, setArticles] = useState<IArticleJSON[]>()
   const [article, setArticleJSON] = useState<IArticleJSON>()
-  const [profiles, setProfilesJSON] = useState<IProfileJSON[]>()
+  const [profiles, setProfilesJSON] = useState<IProfileJSON[]>([])
   const [categories, setCategories] = useState<string[]>([])
 
   const loadOptions = async () => {
@@ -38,12 +38,10 @@ export default () => {
 
   const loadArticle = async (contentQuery: IContentQuery) => {
     const content = await getContent(contentQuery)
-    setArticleJSON(content)
-    let profile_contents: IProfileJSON[] = []
     content.authors.forEach(async (author: string) => {
-      profile_contents.push(await getProfile({username: author}))
+      setProfilesJSON([...(profiles as unknown[]), await getProfile({username: author})])
     })
-    setProfilesJSON(profile_contents)
+    setArticleJSON(content)
   }
 
   useEffect(() => {
@@ -51,8 +49,9 @@ export default () => {
     fetchArticles()
   }, []);
 
+
   useEffect(() => {
-    const [category, week] = location.href.split("/").slice(-2);
+    const [category, week] = location.href.split("/").slice(-2)
     loadArticle({category, week})
   }, [])
 
