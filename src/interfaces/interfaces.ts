@@ -1,11 +1,3 @@
-export interface IArticleJSON {
-    authors: string[]
-    category: string
-    contentHTML: string
-    title: string
-    week: string
-}
-  
 export interface IProfileJSON {
     category: string
     profile_link: string
@@ -14,3 +6,11 @@ export interface IProfileJSON {
     contentHTML: string
 }
   
+
+export interface IArticleJSON {
+    authors: IProfileJSON[]
+    category: string
+    contentHTML: string
+    title: string
+    week: string
+}

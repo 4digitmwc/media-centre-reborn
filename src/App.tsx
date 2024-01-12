@@ -7,8 +7,8 @@ import Title from "components/Title/Title";
 import Article from "components/Article/Article";
 import Profiles from "components/Profiles/Profiles";
 import "App.scss";
-import { IContentQuery, getArticleCategories, getArticles, getContent, getProfile } from "utils/api";
-import { IArticleJSON, IProfileJSON } from "interfaces/interfaces";
+import { IContentQuery, getArticleCategories, getArticles, getContent } from "utils/api";
+import { IArticleJSON } from "interfaces/interfaces";
 
 const theme = createTheme({
   palette: {
@@ -25,7 +25,6 @@ export default () => {
 
   const [articles, setArticles] = useState<IArticleJSON[]>()
   const [article, setArticleJSON] = useState<IArticleJSON>()
-  const [profiles, setProfilesJSON] = useState<IProfileJSON[]>([])
   const [categories, setCategories] = useState<string[]>([])
 
   const loadOptions = async () => {
@@ -38,9 +37,6 @@ export default () => {
 
   const loadArticle = async (contentQuery: IContentQuery) => {
     const content = await getContent(contentQuery)
-    content.authors.forEach(async (author: string) => {
-      setProfilesJSON([...(profiles as unknown[]), await getProfile({username: author})])
-    })
     setArticleJSON(content)
   }
 
@@ -58,13 +54,13 @@ export default () => {
   return (
     <ThemeProvider theme={theme}>
       {articles && <Navbar articles={articles} />}
-      {(article && profiles && profiles.length) ? (
+      {(article) ? (
         <>
           <Title
             title={article.title}
             subtitle=""
           />
-          <Profiles profiles={profiles} />
+          <Profiles profiles={article.authors} />
           <Article {...article} />
         </>
       ) : (
